@@ -14,7 +14,7 @@ This is a 3rd party add-on for Microsoft Flight Simulator 2020 and PilotEdge and
 ## Install
 
 1. Install, configure, and test the [PilotEdge Pilot Client for Microsoft Flight Simulator 2020](https://www.pilotedge.net/pages/download-software-msfs).
-2. Download the latest release of PE Helper.
+2. Download the [latest release](https://github.com/rcd/msfs-pe-helper/releases/latest) of PE Helper.
 3. Extract the release Zip file to your Community folder.
 4. Go fly!
  
