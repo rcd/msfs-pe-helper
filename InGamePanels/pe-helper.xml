@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SimBase.Document Type="InGamePanels" version="1.0">
+  <Filename>InGamePanel_PEHelper.spb</Filename>
+  <InGamePanels.InGamePanelDefinition
+	id="PANEL_PEHELPER_PANEL"
+	Name="PE Helper"
+	url="html_ui/InGamePanels/PEHelper/PEHelper.html"
+	resizeDirections="Both"
+	minWidth="36"
+	minHeight="50"
+	defaultWidth="36"
+	defaultHeight="50"
+	defaultTop="33"
+	defaultRight="2"
+	icon="ICON_TOOLBAR_PEHELPER"
+	buttonVisible="true">
+  </InGamePanels.InGamePanelDefinition>
+</SimBase.Document>

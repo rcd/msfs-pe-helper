@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/SCSS/common.css" />
+    <link rel="stylesheet" href="PEHelper.css" />
+
+    <script type="text/javascript" src="/JS/coherent.js"></script>
+    <script type="text/javascript" src="/JS/common.js"></script>
+    <script type="text/javascript" src="/JS/dataStorage.js"></script>
+    <script type="text/javascript" src="/JS/buttons.js"></script>
+    <script type="text/javascript" src="/JS/Services/ToolBarPanels.js"></script>
+    <script type="text/javascript" src="/Pages/VCockpit/Instruments/Shared/BaseInstrument.js"></script>
+
+    <link rel="import" href="/templates/ingameUi/ingameUi.html" />
+    <link rel="import" href="/templates/ingameUiHeader/ingameUiHeader.html" />
+    <link rel="import" href="/templates/NewPushButton/NewPushButton.html" />
+    <link rel="import" href="/templates/StatePushButton/StatePushButton.html" />
+    <link rel="import" href="/templates/uiInput/uiInput.html" />
+
+    <script type="text/javascript" src="/JS/debug.js"></script>
+    <script type="text/javascript" src="PEHelper.js"></script>
+</head>
+
+<body class="border-box">
+    <ingamepanel-pe-helper>
+        <ingame-ui id="PEHelper" panel-id="PANEL_PEHELPER_PANEL" title="PE Helper" class="ingameUiFrame panelInvisible" content-fit="true">
+            <ui-element id="PEHelperElement" auto-inside>
+                <section id="User">
+                    <div class="pe-user-grid">
+                        <div class="pe-label">PilotEdge: <span class='pe-status pe-off'>Not Running</span></div>
+                        <state-push-button class='pe-connect-disconnect' title='Connect' titleChecked='Disconnect'></state-push-button>
+
+                        <div class="pe-label">Callsign <span class='pe-callsign-validation pe-error'></span></div>
+                        <ui-input class="pe-callsign pe-validation-failed" type="text"></ui-input>
+
+                        <div class="pe-label">Type Code <span class='pe-type-validation pe-error'></span></div>
+                        <ui-input class="pe-type" type="text"></ui-input>
+
+                        <div class="pe-label">Airline Code <span class='pe-airline-validation pe-error'></span></div>
+                        <ui-input class="pe-airline" type="text"></ui-input>
+
+                        <div class="pe-label">Livery <span class='pe-livery-validation pe-error'></span></div>
+                        <ui-input class="pe-livery" type="text"></ui-input>
+                    </div>
+
+                    <div class="pe-message pe-error">The PilotEdge Client is not running!</div>
+                </section>
+                <section id="ATIS">
+                    <div class="pe-atis-grid">
+                        <div>
+                            <ui-input class="pe-atis-airport" type="text"></ui-input>
+                        </div>
+                        <!-- place in div to fix hover highlight -->
+                        <new-push-button class="pe-atis-get small" title="Get ATIS"></new-push-button>
+                    </div>
+
+                    <div class="pe-atis-frame">
+                        <iframe class="pe-atis-frame"></iframe>
+                    </div>
+                </section>
+                <section id="Actions">
+                    <div class="pe-action-grid">
+                        <div class="pe-label">Mode C: <span class='pe-modec pe-off'>OFF</span></div>
+                        <state-push-button class='pe-ident' title='Ident' titleChecked='Ident'></state-push-button>
+                    </div>
+                </section>
+            </ui-element>
+        </ingame-ui>
+    </ingamepanel-pe-helper>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+﻿ingame-ui#PEHelper ui-element#PEHelperElement {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+}
+
+ingame-ui#PEHelper .pe-on {
+    color: green;
+}
+
+ingame-ui#PEHelper .pe-off {
+    color: red;
+}
+
+ingame-ui#PEHelper .pe-label {
+    line-height: calc(var(--screenHeight) * (30px / 1080));
+    vertical-align: middle;
+}
+
+ingame-ui#PEHelper .pe-message {
+    line-height: calc(var(--screenHeight) * (40px / 1080));
+    vertical-align: middle;
+    text-align: right;
+    color: #dddddd;
+    padding-top: var(--baseMargin);
+}
+
+ingame-ui#PEHelper section {
+    margin-bottom: calc(var(--screenHeight) * (6px / 2160));
+    padding: var(--baseMargin);
+    background: var(--backgroundColorPanel);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+ingame-ui#PEHelper .pe-user-grid {
+    display: grid;
+    grid-template-columns: 60% auto;
+    grid-gap: calc(var(--screenHeight) * (15px / 2160));
+}
+
+ingame-ui#PEHelper .pe-action-grid {
+    display: grid;
+    grid-template-columns: 50% auto;
+    grid-gap: calc(var(--screenHeight) * (20px / 2160));
+}
+
+ingame-ui#PEHelper .pe-atis-grid {
+    display: grid;
+    grid-template-columns: 70% auto;
+    grid-gap: calc(var(--screenHeight) * (20px / 2160));
+    padding-bottom: calc(var(--screenHeight) * (20px / 2160));
+}
+
+ingame-ui#PEHelper .pe-atis-get {
+    width: 100%;
+}
+
+ingame-ui#PEHelper section#ATIS {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+ingame-ui#PEHelper .pe-atis-frame {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+}
+
+ingame-ui#PEHelper .pe-atis-frame iframe {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100% !important;
+    overflow: scroll;
+    height: 100%;
+    flex: 1;
+}
+
+ingame-ui#PEHelper .pe-error {
+    color: red !important;
+}

@@ -1,0 +1,8 @@
+<Project Version="2" Name="pe-helper" FolderName="Build">
+	<OutputDirectory>.</OutputDirectory>
+	<TemporaryOutputDirectory>_Temp</TemporaryOutputDirectory>
+	<Packages>
+		<Package>PackageDefinitions\pe-helper.xml</Package>
+	</Packages>
+</Project>
+
