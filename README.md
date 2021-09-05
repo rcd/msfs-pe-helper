@@ -25,6 +25,7 @@ The usage of this add-on should be mostly self explanitory if you configured and
 - ATIS can be difficult to read. This is due to some limitations in how the PilotEdge API can be accessed from MSFS.
 - It can be difficult to see if a text input box is disabled or not.
 - The text input boxes sometimes have difficulty getting focus. Alt+Tab out of MSFS and then go back into MSFS. This usually fixes the issue.
+- Can't tab between controls.
 - The toolbar icon is ugly. I'm a developer, not an artist. :P
 
 ## Credit
