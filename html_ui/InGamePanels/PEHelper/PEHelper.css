@@ -1,4 +1,4 @@
-﻿ingame-ui#PEHelper ui-element#PEHelperElement {
+﻿ingame-ui#PEHelper div#PEHelperContent {
     display: flex;
     flex-direction: column;
     height: 100%;

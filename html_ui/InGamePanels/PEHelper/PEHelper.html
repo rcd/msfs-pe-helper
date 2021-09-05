@@ -27,45 +27,47 @@
     <ingamepanel-pe-helper>
         <ingame-ui id="PEHelper" panel-id="PANEL_PEHELPER_PANEL" title="PE Helper" class="ingameUiFrame panelInvisible" content-fit="true">
             <ui-element id="PEHelperElement" auto-inside>
-                <section id="User">
-                    <div class="pe-user-grid">
-                        <div class="pe-label">PilotEdge: <span class='pe-status pe-off'>Not Running</span></div>
-                        <state-push-button class='pe-connect-disconnect' title='Connect' titleChecked='Disconnect' tabindex='5'></state-push-button>
+                <div id="PEHelperContent">
+                    <section id="User">
+                        <div class="pe-user-grid">
+                            <div class="pe-label">PilotEdge: <span class='pe-status pe-off'>Not Running</span></div>
+                            <state-push-button class='pe-connect-disconnect' title='Connect' titleChecked='Disconnect' tabindex='5'></state-push-button>
 
-                        <div class="pe-label">Callsign <span class='pe-callsign-validation pe-error'></span></div>
-                        <ui-input class="pe-callsign" type="text" tabindex='1'></ui-input>
+                            <div class="pe-label">Callsign <span class='pe-callsign-validation pe-error'></span></div>
+                            <ui-input class="pe-callsign" type="text" tabindex='1'></ui-input>
 
-                        <div class="pe-label">Type Code <span class='pe-type-validation pe-error'></span></div>
-                        <ui-input class="pe-type" type="text" tabindex='2'></ui-input>
+                            <div class="pe-label">Type Code <span class='pe-type-validation pe-error'></span></div>
+                            <ui-input class="pe-type" type="text" tabindex='2'></ui-input>
 
-                        <div class="pe-label">Airline Code <span class='pe-airline-validation pe-error'></span></div>
-                        <ui-input class="pe-airline" type="text" tabindex='3'></ui-input>
+                            <div class="pe-label">Airline Code <span class='pe-airline-validation pe-error'></span></div>
+                            <ui-input class="pe-airline" type="text" tabindex='3'></ui-input>
 
-                        <div class="pe-label">Livery <span class='pe-livery-validation pe-error'></span></div>
-                        <ui-input class="pe-livery" type="text" tabindex='4'></ui-input>
-                    </div>
-
-                    <div class="pe-message pe-error">The PilotEdge Client is not running!</div>
-                </section>
-                <section id="ATIS">
-                    <div class="pe-atis-grid">
-                        <div>
-                            <ui-input class="pe-atis-airport" type="text"></ui-input>
+                            <div class="pe-label">Livery <span class='pe-livery-validation pe-error'></span></div>
+                            <ui-input class="pe-livery" type="text" tabindex='4'></ui-input>
                         </div>
-                        <!-- place in div to fix hover highlight -->
-                        <new-push-button class="pe-atis-get small" title="Get ATIS"></new-push-button>
-                    </div>
 
-                    <div class="pe-atis-frame">
-                        <iframe class="pe-atis-frame"></iframe>
-                    </div>
-                </section>
-                <section id="Actions">
-                    <div class="pe-action-grid">
-                        <div class="pe-label">Mode C: <span class='pe-modec pe-off'>OFF</span></div>
-                        <state-push-button class='pe-ident' title='Ident' titleChecked='Ident'></state-push-button>
-                    </div>
-                </section>
+                        <div class="pe-message pe-error">The PilotEdge Client is not running!</div>
+                    </section>
+                    <section id="ATIS">
+                        <div class="pe-atis-grid">
+                            <div>
+                                <ui-input class="pe-atis-airport" type="text"></ui-input>
+                            </div>
+                            <!-- place in div to fix hover highlight -->
+                            <new-push-button class="pe-atis-get small" title="Get ATIS"></new-push-button>
+                        </div>
+
+                        <div class="pe-atis-frame">
+                            <iframe class="pe-atis-frame"></iframe>
+                        </div>
+                    </section>
+                    <section id="Actions">
+                        <div class="pe-action-grid">
+                            <div class="pe-label">Mode C: <span class='pe-modec pe-off'>OFF</span></div>
+                            <state-push-button class='pe-ident' title='Ident' titleChecked='Ident'></state-push-button>
+                        </div>
+                    </section>
+                </div>
             </ui-element>
         </ingame-ui>
     </ingamepanel-pe-helper>
