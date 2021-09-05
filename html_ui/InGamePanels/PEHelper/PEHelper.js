@@ -33,7 +33,7 @@ class IngamePanelPEHelperPanel extends TemplateElement {
 
         if (this.ingameUi) {
             this.ingameUi.addEventListener("panelActive", (e) => {
-                console.log('panelActive');
+                //console.log('panelActive');
                 self.panelActive = true;
                 self.initialize();
 
@@ -82,15 +82,31 @@ class IngamePanelPEHelperPanel extends TemplateElement {
 
         self.m_User_Callsign = document.querySelector('.pe-callsign');
         self.m_User_Callsign.maxLength = 10;
+        self.m_User_Callsign.addEventListener('keypress', (event) => {
+            if (event.keyCode == KeyCode.KEY_ENTER)
+                self.doPEConnect();
+        });
 
         self.m_User_Type = document.querySelector('.pe-type');
         self.m_User_Type.maxLength = 4;
+        self.m_User_Type.addEventListener('keypress', (event) => {
+            if (event.keyCode == KeyCode.KEY_ENTER)
+                self.doPEConnect();
+        });
 
         self.m_User_Airline = document.querySelector('.pe-airline');
         self.m_User_Airline.maxLength = 3;
+        self.m_User_Airline.addEventListener('keypress', (event) => {
+            if (event.keyCode == KeyCode.KEY_ENTER)
+                self.doPEConnect();
+        });
 
         self.m_User_Livery = document.querySelector('.pe-livery');
         self.m_User_Livery.maxLength = 200;
+        self.m_User_Livery.addEventListener('keypress', (event) => {
+            if (event.keyCode == KeyCode.KEY_ENTER)
+                self.doPEConnect();
+        });
 
 
         self.m_ATIS_Get = document.querySelector('.pe-atis-get');
@@ -98,6 +114,10 @@ class IngamePanelPEHelperPanel extends TemplateElement {
 
         self.m_ATIS_Airport = document.querySelector('.pe-atis-airport');
         self.m_ATIS_Airport.maxLength = 4;
+        self.m_ATIS_Airport.addEventListener('keypress', (event) => {
+            if (event.keyCode == KeyCode.KEY_ENTER)
+                self.doPEGetAtis();
+        });
 
         self.m_ATIS_Frame = document.querySelector('div.pe-atis-frame');
         self.m_ATIS_Frame.innerHTML = `<iframe class='pe-atis-frame'></iframe>`;
