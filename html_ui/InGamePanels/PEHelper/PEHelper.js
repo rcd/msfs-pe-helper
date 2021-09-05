@@ -283,25 +283,29 @@ class IngamePanelPEHelperPanel extends TemplateElement {
                     }
 
                     if (data[i].Topic == 'NotificationPosted') {
+                        // these are messages displayed in the web interface or console
+                        // we are only interested in displaying errors to the user
                         if (data[i].Args.Type == 'Error') {
-                            self.peError = data[i].Args.Message;
-                            if (self.peError.length <= 30) {
-                                self.setPEMessage('Error: ' + self.peError, true);
-                            } else {
-                                self.setPEMessage('Error: See web interface for details', true);
+                            // only store last error during connection attempt... the other errors seems a bit spurious
+                            if (!self.peStatus.IsConnected) {
+                                self.peError = data[i].Args.Message;
+                                if (self.peError.length <= 30) { // is there a way to measure the length of the string?
+                                    self.setPEMessage('Error: ' + self.peError, true);
+                                } else {
+                                    self.setPEMessage('Error: See console for details', true);
+                                }
                             }
-                            self.peStatus.IsConnected = false;
                             self.onPEStatusUpdated();
-                            continue;
                         }
+                        continue;
                     } else if (data[i].Topic == 'CommandValidationFailed') {
+                        // I think this only happens during connection if the user enters invalid data
                         self.peError = data[i].Args.ErrorMessage;
                         if (self.peError.length <= 30) {
                             self.setPEMessage('Error: ' + self.peError, true);
                         } else {
-                            self.setPEMessage('Error: See web interface for details', true);
+                            self.setPEMessage('Error: See console for details', true);
                         }
-                        self.peStatus.IsConnected = false;
                         self.onPEStatusUpdated();
                         continue;
                     } else if (data[i].Topic == 'SystemStatePublished') {
@@ -315,12 +319,26 @@ class IngamePanelPEHelperPanel extends TemplateElement {
                         self.peStatus.TypeCode = data[i].Args.TypeCode;
                         self.peStatus.AirlineCode = data[i].Args.AirlineCode;
                         self.peStatus.Livery = data[i].Args.Livery;
-                        self.peError = null;
+                        self.peError = null; // if we are successfully connected, reset the last error status
                         self.setPEMessage('Connected to PilotEdge as ' + self.peStatus.Callsign, false);
                         self.onPEStatusUpdated();
                         continue;
                     } else if (data[i].Topic == 'NetworkDisconnected') {
                         self.peStatus.IsConnected = false;
+                        if (data[i].Args.DisconnectInfo) {
+                            if (data[i].Args.DisconnectInfo.Reason && data[i].Args.DisconnectInfo.Reason != '') {
+                                // There seems to be 3 disconnect types: Failure, Forcible, and Intentional;
+                                // Failure and Forcible seem to be interchangeable. Just check for a Reason for now.
+                                self.peError = data[i].Args.DisconnectInfo.Reason;
+                                if (self.peError.length <= 30) {
+                                    self.setPEMessage('Disconnected: ' + self.peError, true);
+                                } else {
+                                    self.setPEMessage('Disconnected: See console for details', true);
+                                }
+                            } else
+                                self.peError = null; // disconnected but no error?
+                        } else
+                            self.peError = null; // DisconnectInfo always seems to be available... is this necessary?
                         if (!self.peError)
                             self.setPEMessage('Click [Connect] to connect to PilotEdge', false);
                         self.onPEStatusUpdated();
