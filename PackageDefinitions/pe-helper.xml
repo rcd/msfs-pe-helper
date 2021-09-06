@@ -1,4 +1,4 @@
-<AssetPackage Name="pe-helper" Version="0.0.4">
+<AssetPackage Name="pe-helper" Version="0.0.5">
 	<ItemSettings>
 		<ContentType>MISC</ContentType>
 		<Title>pe-helper</Title>
@@ -15,8 +15,8 @@
 			<Flags>
 				<FSXCompatibility>false</FSXCompatibility>
 			</Flags>
-			<AssetDir>PackageDefinitions\pe-helper\ContentInfo</AssetDir>
-			<OutputDir>ContentInfo\pe-helper</OutputDir>
+			<AssetDir>PackageDefinitions\pe-helper\ContentInfo\</AssetDir>
+			<OutputDir>ContentInfo\pe-helper\</OutputDir>
 		</AssetGroup>
 		<AssetGroup Name="html-ui">
 			<Type>Copy</Type>

@@ -1,8 +1,8 @@
-﻿ingame-ui#PEHelper div#PEHelperContent {
+﻿ingame-ui#PEHelper ui-element#PEHelperElement {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     height: 100%;
-    min-height: 100%;
 }
 
 ingame-ui#PEHelper .pe-on {
@@ -24,6 +24,14 @@ ingame-ui#PEHelper .pe-message {
     text-align: right;
     color: #dddddd;
     padding-top: var(--baseMargin);
+}
+
+ingame-ui#PEHelper.minimized section {
+    display: none;
+}
+
+ingame-ui#PEHelper.minimized section * {
+    display: none;
 }
 
 ingame-ui#PEHelper section {
