@@ -124,13 +124,6 @@ class IngamePanelPEHelperPanel extends TemplateElement {
         var iframe = document.querySelector('iframe.pe-atis-frame');
         iframe.contentWindow.document.body.innerHTML = 'Enter an ICAO airport identifier above and click [Get ATIS].<br><br>Use mouse wheel to scroll.';
 
-
-        self.m_ModeC = document.querySelector('.pe-modec');
-
-        self.m_Ident = document.querySelector('.pe-ident');
-        self.m_Ident.disabled = true; // disabled until connected
-        self.m_Ident.addEventListener('click', () => { self.doPEIdent() });
-
         this.started = true;
     }
     disconnectedCallback() {
@@ -175,7 +168,7 @@ class IngamePanelPEHelperPanel extends TemplateElement {
         // Set a temp status message in case loading ATIS takes a few seconds; Also allows "browser" to release previous iframe resources
         self.m_ATIS_Frame.innerHTML = `Loading: ${airport}`;
 
-        // If we update the source URL of an existing iframe it will send a CORS Origin header that the PE server do not like;
+        // If we update the source URL of an existing iframe it will send a CORS Origin header that the PE server does not like;
         // Work around is to recreate the iframe everytime we request an updated ATIS.
         self.m_ATIS_Frame.innerHTML = `<iframe class='pe-atis-frame' src='https://www.pilotedge.net/atis/${airport}.txt'></iframe>`;
 
@@ -200,6 +193,9 @@ class IngamePanelPEHelperPanel extends TemplateElement {
         var self = this;
 
         var connected = false;
+        var current = false;
+        if (self.peStatus)
+            current = self.peStatus.IsConnected;
 
         //console.log(self.peStatus);
 
@@ -207,25 +203,12 @@ class IngamePanelPEHelperPanel extends TemplateElement {
             connected = self.peStatus.IsConnected;
             self.m_Connect.enableState(true, connected);
 
-            self.m_User_Callsign.value = self.peStatus.Callsign;
-            self.m_User_Type.value = self.peStatus.TypeCode;
-            self.m_User_Airline.value = self.peStatus.AirlineCode;
-            self.m_User_Livery.value = self.peStatus.Livery;
-
-            if (self.peStatus.IsSquawkingModeC) {
-                self.m_ModeC.innerHTML = 'ON';
-                self.m_ModeC.classList.toggle('pe-on', true);
-                self.m_ModeC.classList.toggle('pe-off', false);
-            } else {
-                self.m_ModeC.innerHTML = 'OFF';
-                self.m_ModeC.classList.toggle('pe-on', false);
-                self.m_ModeC.classList.toggle('pe-off', true);
-            }
-
-            self.m_Ident.enableState(true, self.peStatus.IsSquawkingIdent);
+            self.m_User_Callsign.setValue(self.peStatus.Callsign);
+            self.m_User_Type.setValue(self.peStatus.TypeCode);
+            self.m_User_Airline.setValue(self.peStatus.AirlineCode);
+            self.m_User_Livery.setValue(self.peStatus.Livery);
         }
 
-        // user inputs should be disabled if connected
         self.toggleUserInputs(!connected);
     }
 
@@ -240,12 +223,23 @@ class IngamePanelPEHelperPanel extends TemplateElement {
             self.m_User_Livery.disabled = !enabled;
 
             // current MSFS ui-input implementation does not disable inner input control
-            document.querySelector('.pe-callsign input').disabled = !enabled;
-            document.querySelector('.pe-type input').disabled = !enabled;
-            document.querySelector('.pe-airline input').disabled = !enabled;
-            document.querySelector('.pe-livery input').disabled = !enabled;
+            var input = document.querySelector('.pe-callsign input');
+            input.disabled = !enabled;
+            //input.readOnly = !enabled;
+
+            input = document.querySelector('.pe-type input');
+            input.disabled = !enabled;
+            //input.readOnly = !enabled;
+
+            input = document.querySelector('.pe-airline input');
+            input.disabled = !enabled;
+            //input.readOnly = !enabled;
+
+            input = document.querySelector('.pe-livery input');
+            input.disabled = !enabled;
+            //input.readOnly = !enabled;
         } catch (e) {
-            //console.log(e);
+            console.log(e);
         }
     }
 
@@ -258,7 +252,6 @@ class IngamePanelPEHelperPanel extends TemplateElement {
             self.m_Status.classList.toggle('pe-on', running);
             self.m_Status.classList.toggle('pe-off', !running);
             self.m_Connect.disabled = !running;
-            self.m_Ident.disabled = !running;
             if (running)
                 self.setPEMessage('Click [Connect] to connect to PilotEdge', false);
             else
@@ -298,6 +291,9 @@ class IngamePanelPEHelperPanel extends TemplateElement {
             .then(data => {
                 // ensure update on first update or if user starts PE after the add-on is running
                 self.toggleRunningStatus(true);
+
+                //if (data.length > 0)
+                //    console.log(data);
 
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].Topic == 'NotificationPosted') {
@@ -339,7 +335,7 @@ class IngamePanelPEHelperPanel extends TemplateElement {
                         self.peStatus.AirlineCode = data[i].Args.AirlineCode;
                         self.peStatus.Livery = data[i].Args.Livery;
                         self.peError = null; // if we are successfully connected, reset the last error status
-                        self.setPEMessage('Connected to PilotEdge as ' + self.peStatus.Callsign, false);
+                        self.setPEMessage(`Connected to PilotEdge as ${self.peStatus.Callsign} (${self.peStatus.TypeCode})`, false);
                         self.onPEStatusUpdated();
                         continue;
                     } else if (data[i].Topic == 'NetworkDisconnected') {
@@ -377,6 +373,7 @@ class IngamePanelPEHelperPanel extends TemplateElement {
                 }
             })
             .catch((error) => {
+                console.log(error);
                 // Unable to connect to the PE Client's API server... not running?
                 self.toggleRunningStatus(false);
             });
@@ -462,19 +459,6 @@ class IngamePanelPEHelperPanel extends TemplateElement {
                 'AirlineCode': airline,
                 'Livery': livery
             }
-        });
-    }
-
-    doPEIdent() {
-        var self = this;
-
-        if (!self.peStatus.IsConnected || self.peStatus.IsSquawkingIdent)
-            return;
-
-        self.peStatus.IsSquawkingIdent = true;
-
-        self.sendPECommand({
-            '$type': 'PilotEdge.PilotClient.Commands.Commands.SquawkIdentCommand, PilotEdge.PilotClient'
         });
     }
 }
