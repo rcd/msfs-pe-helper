@@ -1,4 +1,5 @@
-<AssetPackage Name="pe-helper" Version="0.0.5">
+<?xml version="1.0" encoding="utf-8"?>
+<AssetPackage Version="0.0.5">
 	<ItemSettings>
 		<ContentType>MISC</ContentType>
 		<Title>pe-helper</Title>
